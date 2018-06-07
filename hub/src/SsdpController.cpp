@@ -236,6 +236,7 @@ CSsdpController::handle_ssdp_packet(const QByteArray &dtgr) {
   bool valid = false;
   int li ; //line index
   for (li = 0; li <= smt_ok; ++li) {
+    qDebug() << dtgr ;
     if ((valid = dtgr.startsWith(ssdp_start_lines[li])))
       break;
   }
@@ -254,6 +255,7 @@ CSsdpController::send_search() {
   for (int i = 0; ssdp_rh_search_target_arr()[i]; ++i) {
     int res_size = sprintf(buffer, search_format, ssdp_start_lines[smt_search],
                            SSDP_HOST_ADDRESS, SSDP_PORT, ssdp_rh_search_target_arr()[i]);
+    qDebug() << "send search ssdp: " << buffer;
     send_datagram(QByteArray(buffer, res_size));
   }
 }
